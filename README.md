@@ -1,30 +1,38 @@
-# 📡 AI-Fi :: Command Center (The Central Nervous System)
+# 📡 AI-Fi :: Command Center (CNS - Central Nervous System)
 
-## 🌌 Overview
-The **Command Center** is the orchestration heart of the AI-Fi cluster. It handles the secure tunneling, authentication, and state verification across the entire 8-node distributed network.
+## 🌌 The Nexus
+The Command Center is the high-security orchestration hub of the AI-Fi Organism. It governs the internal network topology and manages the cryptographic identities required for cluster coherence.
 
-## 🧠 Role & Responsibility
-- **Master Key Management**: Stores and manages the `id_rsa` key used to access internal Vultr nodes.
-- **Cluster Mapping**: Maintains `CLUSTER_ACCESS.md`, the source of truth for all internal and external IPs.
-- **Orchestration**: Runs scripts that synchronize state and verify the health of the 'Organism'.
-- **Deployment Hub**: The origin point for all cluster-wide updates and scp distributions.
+## 🗺️ Cluster Architecture Diagram
+```mermaid
+graph TD
+    CC[Command Center] -->|SSH/Key| SAPI[Server API]
+    CC -->|SSH/Pass| MP[Maverick Pro]
+    CC -->|SSH/Pass| SE[Strategy Engine]
+    CC -->|SSH/Key| WW[Autonomous Workers]
+    CC -->|SSH/Key| PL[Persistence Layer]
+    CC -->|SSH/Pass| WC[Web Client]
+    CC -->|SSH/PEM| AWS[AWS GPU Node]
+    
+    MP -->|Signals| SE
+    AWS -->|Inference| SE
+    SE -->|Execution| WW
+    WW -->|Logs| PL
+    PL -->|State| SAPI
+    SAPI -->|JSON| WC
+```
 
-## 📂 File Manifest
-- `CLUSTER_ACCESS.md`: The master IP/Auth table for the entire cluster.
-- `RECONSTRUCTION.md`: The emergency guide for cluster-wide re-provisioning.
-- `verify_all.py`: Python verification suite to ensure inter-node connectivity.
-- `scan_cluster.py`: Probing tool for identifying active services across the network.
-- `services/`: Logic for high-level cluster orchestration.
-- `utils/`: Helper functions for network and file operations.
+## 🧠 Operational Manifest
+- **`ShadowPortfolioEngine.cjs`**: The real-time valuation engine. Uses an Atomic Load Pattern for state persistence.
+- **`scan_cluster.py`**: A multi-threaded prober using `pexpect` to verify system integrity across 8 nodes.
+- **`v10_audit_method.js`**: The canonical method for auditing system 'stress' levels.
 
-## 🚀 Restoration Deep Dive
-1. **Infrastructure**: Provision a Standard Vultr Instance (Ubuntu 22.04).
-2. **Environment**: Install `rsync`, `sshpass`, and `git`.
-3. **Secrets Restoration**:
-    - Restore `/root/.gemini/antigravity/scratch/id_rsa` (Essential for Internal Access).
-    - Restore `/root/Touch a girl.pem` (Essential for AWS Access).
-    - `chmod 600` both keys immediately.
-4. **Verification**: Run `python3 verify_all.py`. If any node is 'Down', check the IP in `CLUSTER_ACCESS.md`.
+## 🛠️ Failure Modes & Mitigations
+| Failure | Mitigation |
+| :--- | :--- |
+| **Key Corruption** | Restore from GitHub Secret or `RECONSTRUCTION.md`. |
+| **IP Drift** | Update `NODES` array in `scan_cluster.py` and `CLUSTER_ACCESS.md`. |
+| **Sync Lag** | Adjust cron frequency in `sync_shadow_to_web.sh`. |
 
 ---
-[Master Cluster Guide](https://github.com/kunleulysses/aifi-command-center/blob/master/RECONSTRUCTION.md)
+[Master Construction Blueprint](https://github.com/kunleulysses/aifi-command-center/blob/master/RECONSTRUCTION.md)
